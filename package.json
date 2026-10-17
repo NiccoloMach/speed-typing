@@ -1,1 +1,1 @@
-{"name":"speed-typing","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node --test --experimental-test-coverage","check":"node --check public/app.js && node --check public/engine.js"}}
+{"name":"speed-typing","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node --test --experimental-test-coverage","check":"node --check public/app.js && node --check public/engine.js && node --check public/results.js"}}

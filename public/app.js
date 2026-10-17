@@ -1,4 +1,5 @@
 import {TypingTest} from './engine.js';
+import {resultSummary} from './results.js';
 const passages = [
   'small steps can lead to great things every morning brings a chance to learn something new build a useful habit and move a little closer to your goals take a deep breath relax your hands and let the words flow focus on the next letter and trust that speed will follow with practice the best way to improve is to show up again tomorrow a quiet moment of effort can change the shape of your day',
   'the city wakes slowly as the sun rises above the rooftops a small cafe opens its doors and the smell of fresh bread drifts into the street people walk to work with warm cups in their hands somewhere nearby a bicycle bell rings and a dog waits patiently by a gate these simple moments remind us to look around enjoy the journey and find a little joy in the everyday things we often pass without a thought',
@@ -30,7 +31,7 @@ function render() {
   $('badge').textContent = state.done ? 'Test complete' : test.started === null ? 'Ready when you are' : 'Find your flow';
   if (state.done && !$('typing').disabled) {
     $('typing').disabled = true; $('results').hidden = false;
-    $('summary').textContent = `${state.wpm} WPM · ${state.accuracy}% accuracy · ${state.correct} correct characters · ${state.elapsed.toFixed(1)} seconds`;
+    $('summary').textContent = resultSummary(state);
     $('hint').textContent = 'All done. Take a breath and try again.';
   }
 }

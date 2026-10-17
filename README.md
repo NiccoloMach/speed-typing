@@ -10,6 +10,8 @@ A responsive static typing practice app, with no database, accounts, analytics, 
 - Live WPM, accuracy, character highlighting, results, and restart.
 - Mobile text input, keyboard focus styles, labeled controls, and paste prevention.
 - WPM uses correct characters / 5 / elapsed minutes. Accuracy measures the current corrected text, not historical keystrokes.
+- Errors are the characters still incorrect in the current text. Backspacing and correcting a mistake removes that error; untapped passage characters are not errors. Empty text shows 100% accuracy and zero errors. Scores are rounded to whole numbers.
+- The clock continues when switching tabs. Restart, changing duration, and refreshing begin a fresh test; no results are persisted.
 
 ## Development
 
