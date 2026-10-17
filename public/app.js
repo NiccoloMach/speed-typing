@@ -7,8 +7,23 @@ const passages = [
 // Long passages keep fast typists supplied through a full sixty-second test.
 const $ = id => document.getElementById(id);
 let duration = 30, round = 0, test;
+// Decorative flight layer is separate from the typing controls and scoring.
+const sky = document.createElement('div');
+sky.className = 'flight-sky';
+sky.setAttribute('aria-hidden', 'true');
+for (let i = 0; i < 12; i++) {
+  const cloud = document.createElement('div');
+  cloud.className = 'flight-cloud';
+  cloud.style.setProperty('--i', i);
+  cloud.style.setProperty('--x', `${i % 2 ? 75 : -75}vw`);
+  cloud.style.setProperty('--y', `${[-48, 35, -15, 58, -62, 15][i % 6]}vh`);
+  sky.append(cloud);
+}
+document.body.prepend(sky);
 function render() {
   const state = test.snapshot(performance.now());
+  document.body.classList.toggle('in-flight', test.started !== null && !state.done);
+  document.body.classList.toggle('flight-paused', document.hidden);
   $('time').textContent = state.remaining; $('wpm').textContent = state.wpm; $('accuracy').textContent = state.accuracy;
   $('progress').style.width = `${state.remaining / duration * 100}%`;
   document.querySelector('.progress').setAttribute('aria-valuenow',state.remaining);

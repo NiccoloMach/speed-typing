@@ -1,0 +1,19 @@
+/* A first-person cloud flight: only transforms and opacity animate. */
+:root{--flight-enter:1.4s;--flight-exit:1s;--flight-loop:7s;--flight-ease:cubic-bezier(.2,.65,.25,1)}
+body{isolation:isolate}
+body>header,body>main,body>footer{position:relative;z-index:1}
+.flight-sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 50% 42%,#f1fcff 0%,#9bd9fa 34%,#489bd5 74%,#377fbc 100%);transition:opacity var(--flight-exit) var(--flight-ease);contain:strict}
+.in-flight .flight-sky{opacity:1;transition-duration:var(--flight-enter)}
+.flight-sky::before{content:'';position:absolute;inset:-20%;background:radial-gradient(ellipse at 50% 50%,transparent 35%,#ffffffb3 90%);opacity:.55}
+.flight-sky::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse,#fff 10%,#ffffffdd 45%,transparent 75%);opacity:0}
+.in-flight .flight-sky::after{animation:enter-clouds var(--flight-enter) var(--flight-ease) both}
+.flight-cloud{position:absolute;left:50%;top:43%;width:42vw;height:24vw;min-width:250px;min-height:145px;max-width:760px;max-height:430px;opacity:0;background:radial-gradient(ellipse at 25% 64%,#fff 0 18%,#ffffffb3 28%,transparent 43%),radial-gradient(ellipse at 48% 42%,#fff 0 23%,#ffffffe6 33%,transparent 48%),radial-gradient(ellipse at 72% 61%,#fff 0 21%,#ffffffcc 31%,transparent 45%),radial-gradient(ellipse at 50% 75%,#fff 0 29%,transparent 62%);filter:blur(6px);transform:translate(-50%,-50%) scale(.15)}
+.in-flight .flight-cloud{animation:cloud-flight var(--flight-loop) cubic-bezier(.5,.05,.8,.5) infinite;animation-delay:calc(var(--i) * -.58s)}
+.flight-paused .flight-cloud,.flight-paused .flight-sky::after{animation-play-state:paused}
+.test-card{transition:box-shadow var(--flight-exit) ease,border-color var(--flight-exit) ease}
+.in-flight .test-card{box-shadow:0 25px 90px #20508040;border-color:#ffffffdb}
+.in-flight .intro>p:last-child,.in-flight .header-note,.in-flight .tips,.in-flight details,.in-flight footer{color:#254e72}
+@keyframes cloud-flight{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}15%{opacity:.55}55%{opacity:.92}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(2.6)}}
+@keyframes enter-clouds{0%{opacity:0;transform:scale(.6)}35%{opacity:.85}100%{opacity:0;transform:scale(1.7)}}
+@media(max-width:640px){.flight-cloud:nth-child(n+9){display:none}.flight-cloud{filter:blur(3px)}.in-flight .test-card{box-shadow:0 15px 50px #20508030}}
+@media(prefers-reduced-motion:reduce){.flight-sky{transition-duration:.2s!important}.in-flight .flight-cloud,.in-flight .flight-sky::after{animation:none;transform:none}.flight-cloud{display:none}.test-card{transition:none}}
